@@ -52,7 +52,11 @@ licensing and training services.
 #define configUSE_IDLE_HOOK                     0
 #define configMAX_PRIORITIES                    ( 6 )
 #define configUSE_TICK_HOOK                     0
-#define configCPU_CLOCK_HZ                      ( ( unsigned long ) 8000000)
+#if defined(CHIP_LPC175X_6X)
+#define configCPU_CLOCK_HZ                      ( ( unsigned long ) 8000000 )
+#else
+#define configCPU_CLOCK_HZ                      ( ( unsigned long ) 80000000 ) // OSC (8 MHz) -> PLL0 (80 MHz) -> CPU CLK
+#endif
 #define configTICK_RATE_HZ                      ( ( portTickType ) 1000 )
 #define configMINIMAL_STACK_SIZE                ( ( unsigned short ) 80 )
 #define configTOTAL_HEAP_SIZE                   ( ( size_t ) ( 0x4000 ) )
@@ -76,6 +80,10 @@ licensing and training services.
 #define configUSE_STATS_FORMATTING_FUNCTIONS    0
 #define configAPPLICATION_ALLOCATED_HEAP        1
 #define configSUPPORT_DYNAMIC_ALLOCATION        1
+#define configUSE_TIMERS                        1
+#define configTIMER_TASK_PRIORITY               5
+#define configTIMER_QUEUE_LENGTH                2
+#define configTIMER_TASK_STACK_DEPTH            128
 
 void vAssertCalled( char* file, uint32_t line);
 #define configASSERT( x )     if( ( x ) == 0 ) { vAssertCalled( __FILE__, __LINE__ );}
@@ -120,6 +128,12 @@ extern void vConfigureTimerForRunTimeStats( void );
 #define vPortSVCHandler SVC_Handler
 #define xPortPendSVHandler PendSV_Handler
 #define xPortSysTickHandler SysTick_Handler
+
+/* Dimensions a buffer that can be used by the FreeRTOS+CLI command
+ interpreter.  Set this value to 1 to save RAM if FreeRTOS+CLI does not supply
+ the output butter.  See the FreeRTOS+CLI documentation for more information:
+ http://www.FreeRTOS.org/FreeRTOS-Plus/FreeRTOS_Plus_CLI/ */
+#define configCOMMAND_INT_MAX_OUTPUT_SIZE     1024
 
 #endif /* FREERTOS_CONFIG_H */
 

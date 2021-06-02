@@ -179,10 +179,10 @@ TaskHandle_t vTaskPayload_Handle;
 void payload_init( void )
 {
 
-#ifndef BENCH_TEST
+    if (!bench_test) {
     /* Wait until ENABLE# signal is asserted ( ENABLE == 0) */
     while ( gpio_read_pin( PIN_PORT(GPIO_MMC_ENABLE), PIN_NUMBER(GPIO_MMC_ENABLE) ) == 1 ) {};
-#endif
+    }
 
     xTaskCreate( vTaskPayload, "Payload", 120, NULL, tskPAYLOAD_PRIORITY, &vTaskPayload_Handle );
 
@@ -271,6 +271,11 @@ void vTaskPayload( void *pvParameters )
                 new_state = PAYLOAD_SWITCHING_OFF;
             } else if ( DCDC_good == 1 ) {
                 new_state = PAYLOAD_STATE_FPGA_SETUP;
+
+#ifdef MODULE_RTM
+                /* Send payload ready message to RTM */
+                payload_send_message(FRU_RTM, PAYLOAD_MESSAGE_RTM_READY);
+#endif
             }
             break;
 

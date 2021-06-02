@@ -32,12 +32,15 @@
 
 #define tskPAYLOAD_PRIORITY             (tskIDLE_PRIORITY+2)
 #define tskRTM_MANAGE_PRIORITY          (tskIDLE_PRIORITY+2)
+#define tskXR77129_PRIORITY             (tskIDLE_PRIORITY+2)
 
 #define tskSENSOR_PRIORITY              (tskIDLE_PRIORITY+3)
 #define tskHOTSWAP_PRIORITY             (tskIDLE_PRIORITY+3)
 #define tskLM75SENSOR_PRIORITY          (tskIDLE_PRIORITY+3)
 #define tskMAX6642SENSOR_PRIORITY       (tskIDLE_PRIORITY+3)
 #define tskINA220SENSOR_PRIORITY        (tskIDLE_PRIORITY+3)
+#define tskINA3221SENSOR_PRIORITY       (tskIDLE_PRIORITY+3)
+#define tskADT7420SENSOR_PRIORITY       (tskIDLE_PRIORITY+3)
 
 #define tskIPMI_HANDLERS_PRIORITY       (tskIDLE_PRIORITY+4)
 #define tskIPMI_PRIORITY                (tskIDLE_PRIORITY+4)

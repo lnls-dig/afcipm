@@ -40,6 +40,10 @@
 #include "ina220.h"
 #endif
 
+#if defined(MODULE_INA3221_VOLTAGE) || defined(MODULE_INA3221_CURRENT)
+#include "ina3221.h"
+#endif
+
 #ifdef MODULE_HOTSWAP
 #include "hotswap.h"
 #endif
@@ -50,6 +54,14 @@
 
 #ifdef MODULE_MAX6642
 #include "max6642.h"
+#endif
+
+#ifdef MODULE_ADT7420
+#include "adt7420.h"
+#endif
+
+#ifdef MODULE_INA219
+#include "ina219.h"
 #endif
 
 #endif
